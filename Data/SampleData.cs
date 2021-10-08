@@ -32,7 +32,7 @@ public class SampleData
 
     public static List<Province> GetProvinces()
     {
-        List<Province> Provinces = new List<Province>()
+        List<Province> Province = new List<Province>()
         {
             new Province()
             {
@@ -48,7 +48,7 @@ public class SampleData
                 ProvinceName = "Ontario"
             },
         };
-        return Provinces;
+        return Province;
     }
 
     public static List<City> getCities(ApplicationDbContext context)
