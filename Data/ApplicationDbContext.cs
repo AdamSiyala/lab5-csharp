@@ -16,7 +16,7 @@ namespace Code1st.Data
 
         public DbSet<City> Cities { get; set; }
         public DbSet<Province> Provinces { get; set; }
-        public DbSet<Code1st.Models.Province> Province { get; set; }
-        public object City { get; internal set; }
+        // public DbSet<Code1st.Models.Province> Province { get; set; }
+        // public object City { get; internal set; }
     }
 }

@@ -31,7 +31,15 @@ namespace Code1st.Data.Migrations
                     b.Property<string>("Province")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ProvinceCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProvinceName")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("CityId");
+
+                    b.HasIndex("ProvinceName");
 
                     b.ToTable("Cities");
                 });
@@ -41,20 +49,12 @@ namespace Code1st.Data.Migrations
                     b.Property<string>("ProvinceName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Cities")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("ProvinceCode")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ProvinceName1")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ProvinceName");
 
-                    b.HasIndex("ProvinceName1");
-
-                    b.ToTable("Province");
+                    b.ToTable("Provinces");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -253,11 +253,11 @@ namespace Code1st.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Code1st.Models.Province", b =>
+            modelBuilder.Entity("Code1st.Models.City", b =>
                 {
                     b.HasOne("Code1st.Models.Province", null)
-                        .WithMany("Provinces")
-                        .HasForeignKey("ProvinceName1");
+                        .WithMany("Cities")
+                        .HasForeignKey("ProvinceName");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -313,7 +313,7 @@ namespace Code1st.Data.Migrations
 
             modelBuilder.Entity("Code1st.Models.Province", b =>
                 {
-                    b.Navigation("Provinces");
+                    b.Navigation("Cities");
                 });
 #pragma warning restore 612, 618
         }

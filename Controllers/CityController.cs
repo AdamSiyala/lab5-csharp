@@ -22,25 +22,25 @@ namespace Code1st.Controllers
         // GET: City
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Province.ToListAsync());
+            return View(await _context.Cities.ToListAsync());
         }
 
         // GET: City/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var province = await _context.Province
-                .FirstOrDefaultAsync(m => m.ProvinceName == id);
-            if (province == null)
+            var city = await _context.Cities
+                .FirstOrDefaultAsync(m => m.CityId == id);
+            if (city == null)
             {
                 return NotFound();
             }
 
-            return View(province);
+            return View(city);
         }
 
         // GET: City/Create
@@ -54,31 +54,31 @@ namespace Code1st.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProvinceName,ProvinceCode,Cities")] Province province)
+        public async Task<IActionResult> Create([Bind("CityId,CityName,Population,ProvinceCode,Province")] City city)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(province);
+                _context.Add(city);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(province);
+            return View(city);
         }
 
         // GET: City/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var province = await _context.Province.FindAsync(id);
-            if (province == null)
+            var city = await _context.Cities.FindAsync(id);
+            if (city == null)
             {
                 return NotFound();
             }
-            return View(province);
+            return View(city);
         }
 
         // POST: City/Edit/5
@@ -86,9 +86,9 @@ namespace Code1st.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ProvinceName,ProvinceCode,Cities")] Province province)
+        public async Task<IActionResult> Edit(int id, [Bind("CityId,CityName,Population,ProvinceCode,Province")] City city)
         {
-            if (id != province.ProvinceName)
+            if (id != city.CityId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Code1st.Controllers
             {
                 try
                 {
-                    _context.Update(province);
+                    _context.Update(city);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProvinceExists(province.ProvinceName))
+                    if (!CityExists(city.CityId))
                     {
                         return NotFound();
                     }
@@ -113,41 +113,41 @@ namespace Code1st.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(province);
+            return View(city);
         }
 
         // GET: City/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var province = await _context.Province
-                .FirstOrDefaultAsync(m => m.ProvinceName == id);
-            if (province == null)
+            var city = await _context.Cities
+                .FirstOrDefaultAsync(m => m.CityId == id);
+            if (city == null)
             {
                 return NotFound();
             }
 
-            return View(province);
+            return View(city);
         }
 
         // POST: City/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var province = await _context.Province.FindAsync(id);
-            _context.Province.Remove(province);
+            var city = await _context.Cities.FindAsync(id);
+            _context.Cities.Remove(city);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProvinceExists(string id)
+        private bool CityExists(int id)
         {
-            return _context.Province.Any(e => e.ProvinceName == id);
+            return _context.Cities.Any(e => e.CityId == id);
         }
     }
 }

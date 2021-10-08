@@ -22,7 +22,7 @@ namespace Code1st.Controllers
         // GET: Provinces
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Province.ToListAsync());
+            return View(await _context.Provinces.ToListAsync());
         }
 
         // GET: Provinces/Details/5
@@ -33,7 +33,7 @@ namespace Code1st.Controllers
                 return NotFound();
             }
 
-            var province = await _context.Province
+            var province = await _context.Provinces
                 .FirstOrDefaultAsync(m => m.ProvinceName == id);
             if (province == null)
             {
@@ -54,7 +54,7 @@ namespace Code1st.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProvinceName,ProvinceCode,Cities")] Province province)
+        public async Task<IActionResult> Create([Bind("ProvinceName,ProvinceCode")] Province province)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace Code1st.Controllers
                 return NotFound();
             }
 
-            var province = await _context.Province.FindAsync(id);
+            var province = await _context.Provinces.FindAsync(id);
             if (province == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace Code1st.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ProvinceName,ProvinceCode,Cities")] Province province)
+        public async Task<IActionResult> Edit(string id, [Bind("ProvinceName,ProvinceCode")] Province province)
         {
             if (id != province.ProvinceName)
             {
@@ -124,7 +124,7 @@ namespace Code1st.Controllers
                 return NotFound();
             }
 
-            var province = await _context.Province
+            var province = await _context.Provinces
                 .FirstOrDefaultAsync(m => m.ProvinceName == id);
             if (province == null)
             {
@@ -139,15 +139,15 @@ namespace Code1st.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var province = await _context.Province.FindAsync(id);
-            _context.Province.Remove(province);
+            var province = await _context.Provinces.FindAsync(id);
+            _context.Provinces.Remove(province);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProvinceExists(string id)
         {
-            return _context.Province.Any(e => e.ProvinceName == id);
+            return _context.Provinces.Any(e => e.ProvinceName == id);
         }
     }
 }

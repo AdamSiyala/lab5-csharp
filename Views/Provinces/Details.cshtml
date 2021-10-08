@@ -1,4 +1,4 @@
-@model Code1st.Models.City
+@model Code1st.Models.Province
 
 @{
     ViewData["Title"] = "Details";
@@ -11,26 +11,14 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CityName)
+            @Html.DisplayNameFor(model => model.ProvinceCode)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CityName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Population)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Population)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Province)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Province)
+            @Html.DisplayFor(model => model.ProvinceCode)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.CityName">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.ProvinceName">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

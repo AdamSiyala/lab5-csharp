@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Code1st.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211005183538_InitialCreate")]
+    [Migration("20211008063950_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,42 +18,45 @@ namespace Code1st.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.10");
 
-            modelBuilder.Entity("Code1st.Models.Player", b =>
+            modelBuilder.Entity("Code1st.Models.City", b =>
                 {
-                    b.Property<int>("PlayerId")
+                    b.Property<int>("CityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("CityName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LastName")
+                    b.Property<int>("Population")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Province")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Position")
+                    b.Property<string>("ProvinceCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TeamName")
+                    b.Property<string>("ProvinceName")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("PlayerId");
+                    b.HasKey("CityId");
 
-                    b.HasIndex("TeamName");
+                    b.HasIndex("ProvinceName");
 
-                    b.ToTable("Players");
+                    b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Code1st.Models.Team", b =>
+            modelBuilder.Entity("Code1st.Models.Province", b =>
                 {
-                    b.Property<string>("TeamName")
+                    b.Property<string>("ProvinceName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("City")
+                    b.Property<string>("ProvinceCode")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("TeamName");
+                    b.HasKey("ProvinceName");
 
-                    b.ToTable("Teams");
+                    b.ToTable("Provinces");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -252,13 +255,11 @@ namespace Code1st.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Code1st.Models.Player", b =>
+            modelBuilder.Entity("Code1st.Models.City", b =>
                 {
-                    b.HasOne("Code1st.Models.Team", "Team")
-                        .WithMany("Players")
-                        .HasForeignKey("TeamName");
-
-                    b.Navigation("Team");
+                    b.HasOne("Code1st.Models.Province", null)
+                        .WithMany("Cities")
+                        .HasForeignKey("ProvinceName");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -312,9 +313,9 @@ namespace Code1st.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Code1st.Models.Team", b =>
+            modelBuilder.Entity("Code1st.Models.Province", b =>
                 {
-                    b.Navigation("Players");
+                    b.Navigation("Cities");
                 });
 #pragma warning restore 612, 618
         }
